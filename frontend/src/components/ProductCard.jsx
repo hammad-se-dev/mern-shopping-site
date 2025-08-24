@@ -29,6 +29,14 @@ import {
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product";
 import { useState } from "react";
+import {
+  FaEye,
+  FaEdit,
+  FaTrash,
+  FaInfoCircle,
+  FaPencilAlt,
+  FaTimes,
+} from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
   const [updatedProduct, setUpdatedProduct] = useState(product);
@@ -146,40 +154,64 @@ const ProductCard = ({ product }) => {
             </Text>
 
             <HStack spacing={2}>
+              {/* View Details Button */}
               <Tooltip label="View Details" placement="top">
-                <IconButton
-                  icon={<EditIcon />}
+                <Button
+                  size="sm"
+                  colorScheme="blue"
+                  variant="solid"
                   onClick={onViewOpen}
-                  size="sm"
-                  colorScheme="brand"
-                  variant="ghost"
-                  _hover={{ bg: "brand.50", color: "brand.700" }}
-                />
+                  leftIcon={<FaEye />}
+                  _hover={{
+                    bg: "blue.600",
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                >
+                  View
+                </Button>
               </Tooltip>
 
+              {/* Edit Product Button */}
               <Tooltip label="Edit Product" placement="top">
-                <IconButton
-                  icon={<EditIcon />}
-                  onClick={onOpen}
+                <Button
                   size="sm"
-                  colorScheme="accent"
-                  variant="ghost"
-                  _hover={{ bg: "accent.50", color: "accent.700" }}
-                />
+                  colorScheme="green"
+                  variant="solid"
+                  onClick={onOpen}
+                  leftIcon={<FaEdit />}
+                  _hover={{
+                    bg: "green.600",
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                >
+                  Edit
+                </Button>
               </Tooltip>
 
+              {/* Delete Product Button */}
               <Tooltip label="Delete Product" placement="top">
-                <IconButton
-                  icon={<DeleteIcon />}
+                <Button
+                  size="sm"
+                  colorScheme="red"
+                  variant="solid"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteProduct(product._id);
                   }}
-                  size="sm"
-                  colorScheme="red"
-                  variant="ghost"
-                  _hover={{ bg: "red.50", color: "red.700" }}
-                />
+                  leftIcon={<FaTrash />}
+                  _hover={{
+                    bg: "red.600",
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                >
+                  Delete
+                </Button>
               </Tooltip>
             </HStack>
           </Flex>
@@ -190,7 +222,12 @@ const ProductCard = ({ product }) => {
       <Modal isOpen={isViewOpen} onClose={onViewClose} size="lg">
         <ModalOverlay />
         <ModalContent rounded="xl">
-          <ModalHeader color="brand.600">Product Details</ModalHeader>
+          <ModalHeader color="brand.600">
+            <HStack>
+              <FaInfoCircle color="#3182ce" />
+              <Text>Product Details</Text>
+            </HStack>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} align="stretch">
@@ -219,10 +256,19 @@ const ProductCard = ({ product }) => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="brand" mr={3} onClick={onOpen}>
+            <Button
+              colorScheme="brand"
+              mr={3}
+              onClick={onOpen}
+              leftIcon={<FaEdit />}
+            >
               Edit Product
             </Button>
-            <Button variant="ghost" onClick={onViewClose}>
+            <Button
+              variant="ghost"
+              onClick={onViewClose}
+              leftIcon={<FaTimes />}
+            >
               Close
             </Button>
           </ModalFooter>
@@ -233,7 +279,12 @@ const ProductCard = ({ product }) => {
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
         <ModalContent rounded="xl">
-          <ModalHeader color="brand.600">Update Product</ModalHeader>
+          <ModalHeader color="brand.600">
+            <HStack>
+              <FaPencilAlt color="#3182ce" />
+              <Text>Update Product</Text>
+            </HStack>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} py={4}>
@@ -330,10 +381,11 @@ const ProductCard = ({ product }) => {
               colorScheme="brand"
               mr={3}
               onClick={() => handleUpdateProduct(product._id, updatedProduct)}
+              leftIcon={<FaEdit />}
             >
               Update
             </Button>
-            <Button variant="ghost" onClick={onClose}>
+            <Button variant="ghost" onClick={onClose} leftIcon={<FaTimes />}>
               Cancel
             </Button>
           </ModalFooter>

@@ -36,8 +36,15 @@ const CreatePage = () => {
 
   const navigate = useNavigate();
   const toast = useToast();
-  const { createProduct, loading, error, clearError, categories, fetchCategories } = useProductStore();
-  
+  const {
+    createProduct,
+    loading,
+    error,
+    clearError,
+    categories,
+    fetchCategories,
+  } = useProductStore();
+
   const bg = useColorModeValue("white", "gray.800");
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
@@ -223,13 +230,11 @@ const CreatePage = () => {
                 width="full"
                 isLoading={loading}
                 loadingText="Creating Product..."
-                _hover={{
-                  transform: "translateY(-2px)",
-                  boxShadow: "xl",
-                }}
                 transition="all 0.2s"
                 bgGradient="linear(to-r, blue.400, purple.500)"
                 _hover={{
+                  transform: "translateY(-2px)",
+                  boxShadow: "xl",
                   bgGradient: "linear(to-r, blue.500, purple.600)",
                 }}
               >
