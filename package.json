@@ -8,14 +8,13 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
     "server": "nodemon backend/server.js"
-
-
   },
   "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.11.0"
