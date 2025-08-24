@@ -15,24 +15,30 @@ app.use(express.json());
 
 const __dirname = path.resolve();
 
-// Routes
+// API Routes
 app.use('/api/products', productRoutes);
 
-// Production setup
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, '/frontend/dist')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
-    });
-}
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// Start server
-app.listen(PORT, async () => {
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
+// Connect to database
+const startServer = async () => {
     try {
         await connectDB();
-        console.log(`Server running at http://localhost:${PORT}`);
+        console.log('MongoDB Connected');
+        app.listen(PORT, () => {
+            console.log(`Server running at http://localhost:${PORT}`);
+        });
     } catch (error) {
         console.error('Failed to start server:', error);
-        process.exit(1);
     }
-});
+};
+
+startServer();
+
+export default app;

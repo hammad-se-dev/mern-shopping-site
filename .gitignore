@@ -35,3 +35,5 @@ frontend/dist/
 backend/dist/
 .vscode/
 .DS_Store
+
+.vercel
